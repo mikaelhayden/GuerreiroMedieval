@@ -11,6 +11,7 @@ public class player : MonoBehaviour
     public float gravity;
     public float smoothRotTime;
     public float colliderRadius;
+    public float damage = 20;
 
     
     private float turnSmoothVelocity;
@@ -126,7 +127,13 @@ public class player : MonoBehaviour
 
         foreach(Transform e in enemyList)
         {
-            Debug.Log(e.name);
+            //aplica dano ao inimigo
+            CombatEnemy enemy = e.GetComponent<CombatEnemy>();
+
+            if(enemy != null)
+            {
+                enemy.GetHit(damage);
+            }
         }
 
         yield return new WaitForSeconds(1f);
