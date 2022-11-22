@@ -6,12 +6,16 @@ public class player : MonoBehaviour
 {
     private CharacterController controller;
     private bool isWalking;
+    public bool hiting;
+    private bool waitFor;
+    public bool isDead;
 
     public float speed;
     public float gravity;
     public float smoothRotTime;
     public float colliderRadius;
     public float damage = 20;
+    public float health;
 
     
     private float turnSmoothVelocity;
@@ -34,8 +38,11 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move();
-        GetMouseInput();
+        if(!isDead)
+        {
+            move();
+            GetMouseInput();
+        }
     }
 
     void move()
@@ -97,6 +104,7 @@ public class player : MonoBehaviour
         controller.Move(moveDirection * Time.deltaTime);
     }
 
+    //método para andar e atacar
     void GetMouseInput()
     {
         if(controller.isGrounded)
@@ -117,33 +125,41 @@ public class player : MonoBehaviour
         }
     }
 
+    //corrotina de ataque
     IEnumerator attack()
     {
-        anim.SetBool("attacking", true);
-        anim.SetInteger("transition", 2);
-        yield return new WaitForSeconds(0.4f);
-
-        GetEnemiesList();
-
-        foreach(Transform e in enemyList)
+        if (!waitFor && hiting)
         {
-            //aplica dano ao inimigo
-            CombatEnemy enemy = e.GetComponent<CombatEnemy>();
+            waitFor = true;
+            anim.SetBool("attacking", true);
+            anim.SetInteger("transition", 2);
 
-            if(enemy != null)
+            yield return new WaitForSeconds(0.4f);
+
+            GetEnemiesList();
+
+            foreach (Transform e in enemyList)
             {
-                enemy.GetHit(damage);
+                //aplica dano ao inimigo
+                CombatEnemy enemy = e.GetComponent<CombatEnemy>();
+
+                if (enemy != null)
+                {
+                    enemy.GetHit(damage);
+                }
             }
+
+            yield return new WaitForSeconds(1f);
+
+            anim.SetInteger("transition", 0);
+
+            anim.SetBool("attacking", false);
+
+            waitFor = false;
         }
-
-        yield return new WaitForSeconds(1f);
-
-        anim.SetInteger("transition", 0);
-
-        anim.SetBool("attacking", false);
-
     }
 
+    //lista de inimigos
     void GetEnemiesList()
     {
         enemyList.Clear();
@@ -154,6 +170,36 @@ public class player : MonoBehaviour
                 enemyList.Add(c.transform);
             }
         }
+    }
+
+    //método para o player sofrer um dano
+    public void GetHit(float damage)
+    {
+        health -= damage;
+        if(health > 0)
+        {
+            //player ainda ta vivo
+            StopCoroutine("attack");
+            anim.SetInteger("transition", 3);
+            hiting = true;
+            StartCoroutine("RecoveryFromHit");
+        }
+
+        else
+        {
+            //player morre
+            isDead = true;
+            anim.SetTrigger("die");
+        }
+    }
+
+    //player recuperando do dano
+    IEnumerator RecoveryFromHit()
+    {
+        yield return new WaitForSeconds(1f);
+        anim.SetInteger("transition", 0);
+        hiting = false;
+        anim.SetBool("attacking", false);
     }
 
     private void OnDrawGizmosSelected()
