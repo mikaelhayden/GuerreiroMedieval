@@ -128,7 +128,7 @@ public class player : MonoBehaviour
     //corrotina de ataque
     IEnumerator attack()
     {
-        if (!waitFor && hiting)
+        if (!waitFor && !hiting)
         {
             waitFor = true;
             anim.SetBool("attacking", true);

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,21 +18,23 @@ public class CombatEnemy : MonoBehaviour
     private CapsuleCollider capsule;
     private NavMeshAgent agent;
 
-    
+
 
     [Header("Other")]
     private Transform Player;
 
     private bool walking;
     private bool attacking;
-    private bool waitFor;
     private bool hiting;
+
+    private bool waitFor;
     public bool playerDead;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
         anim = GetComponent<Animator>();
         capsule = GetComponent<CapsuleCollider>();
         agent = GetComponent<NavMeshAgent>();
@@ -44,7 +45,7 @@ public class CombatEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(totalHearth > 0)
+        if (totalHearth > 0)
         {
             float distance = Vector3.Distance(Player.position, transform.position);
 
@@ -80,12 +81,12 @@ public class CombatEnemy : MonoBehaviour
                 anim.SetBool("Run Forward", false);
             }
         }
-       
+
     }
 
     IEnumerator Attack()
     {
-        if(!waitFor && !hiting && !playerDead)
+        if (!waitFor && !hiting && !playerDead)
         {
             waitFor = true;
             attacking = true;
@@ -98,8 +99,8 @@ public class CombatEnemy : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             waitFor = false;
         }
-        
-        if(playerDead)
+
+        if (playerDead)
         {
             anim.SetBool("Run Forward", false);
             anim.SetBool("Claw Attack", false);
@@ -113,9 +114,9 @@ public class CombatEnemy : MonoBehaviour
 
     void GetPlayer()
     {
-        foreach(Collider c in Physics.OverlapSphere((transform.position + transform.forward * colliderRadius), colliderRadius))
+        foreach (Collider c in Physics.OverlapSphere((transform.position + transform.forward * colliderRadius), colliderRadius))
         {
-            if(c.gameObject.CompareTag("Player"))
+            if (c.gameObject.CompareTag("Player"))
             {
                 //aplicasse dano
                 c.gameObject.GetComponent<player>().GetHit(attackDamage);
@@ -129,7 +130,7 @@ public class CombatEnemy : MonoBehaviour
     {
         totalHearth -= damage;
 
-        if(totalHearth > 0)
+        if (totalHearth > 0)
         {
             //inimigo vivo
             StopCoroutine("Attack");
