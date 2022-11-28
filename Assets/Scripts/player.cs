@@ -93,7 +93,6 @@ public class player : MonoBehaviour
                     anim.SetInteger("transition", 0);
                     anim.SetBool("walking", false);
                     moveDirection = Vector3.zero;
-
                     isWalking = false;
             }
         }
@@ -128,9 +127,11 @@ public class player : MonoBehaviour
     //corrotina de ataque
     IEnumerator attack()
     {
+        Debug.Log("entrou no atack");
         if (!waitFor && !hiting)
         {
             waitFor = true;
+            Debug.Log("entrou no IF");
             anim.SetBool("attacking", true);
             anim.SetInteger("transition", 2);
 

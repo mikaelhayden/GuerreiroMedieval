@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,6 +30,11 @@ public class CombatEnemy : MonoBehaviour
 
     private bool waitFor;
     public bool playerDead;
+
+    [Header("WayPoints")]
+    public List<Transform> wayPoints = new List<Transform>();
+    public int currentPathIndex;
+    public float pathDistance;
 
 
     // Start is called before the first frame update
@@ -77,16 +83,35 @@ public class CombatEnemy : MonoBehaviour
                 //o personagem está fora do raio de ação
                 walking = false;
                 attacking = false;
-                agent.isStopped = true;
+                //agent.isStopped = true;
                 anim.SetBool("Run Forward", false);
+                moveTo();
             }
         }
 
     }
 
+    void moveTo()
+    {
+        if(wayPoints.Count > 0)
+        {
+            float distance = Vector3.Distance(wayPoints[currentPathIndex].position, transform.position);
+            agent.destination = wayPoints[currentPathIndex].position;
+
+            if (distance <= pathDistance)
+            {
+                //parte para o próximo ponto
+                currentPathIndex = Random.Range(0, wayPoints.Count);
+
+            }
+            anim.SetBool("Run Forward", true);
+            walking = true;
+        }
+    }
+
     IEnumerator Attack()
     {
-        if (!waitFor && !hiting && !playerDead)
+        if (!waitFor && !hiting && !playerDead && !walking)
         {
             waitFor = true;
             attacking = true;
