@@ -63,6 +63,16 @@ public class player : MonoBehaviour
 
                 if(!anim.GetBool("attacking"))
                 {
+                    if (Input.GetKey(KeyCode.LeftShift)) 
+                    {
+                        anim.SetInteger("transition", 4);
+                        speed = 6;
+                    }
+                    else
+                    {
+                        speed = 4;
+                        anim.SetInteger("transition", 1);
+                    }
                     //variável local que armazena a rotação e o angulo de visualização da camera
                     float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
@@ -75,9 +85,11 @@ public class player : MonoBehaviour
                     //armazena direção com base na direção do mouse
                     moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.forward * speed;
 
-                    anim.SetInteger("transition", 1);
+                    
 
                     isWalking = true;
+
+                    
                 }
 
                 else
