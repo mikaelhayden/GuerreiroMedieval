@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
-    private CharacterController controller;
+    public CharacterController controller;
+
     private bool isWalking;
     public bool hiting;
     private bool waitFor;
     public bool isDead;
 
     public float speed;
-    public float gravity;
+    public float gravity; //gravidade do player
     public float smoothRotTime;
     public float colliderRadius;
     public float damage = 20;
     public float health;
+    public JumpPlayer jump;
+    public bool isJumping;
 
-    
     private float turnSmoothVelocity;
 
     private Animator anim;
@@ -33,12 +35,13 @@ public class player : MonoBehaviour
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
+        jump = GetComponent<JumpPlayer>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(!isDead)
+        if(!isDead && !jump.isJump)
         {
             move();
             GetMouseInput();
@@ -47,7 +50,7 @@ public class player : MonoBehaviour
 
     void move()
     {
-        if(controller.isGrounded)
+        if(controller.isGrounded && jump.isJump == false)
         {
             //pega o input horizontal (teclas direita/esquerda)
             float horizontal = Input.GetAxisRaw("Horizontal");
@@ -73,6 +76,7 @@ public class player : MonoBehaviour
                         speed = 4;
                         anim.SetInteger("transition", 1);
                     }
+                    anim.SetBool("walking", true);
                     //variável local que armazena a rotação e o angulo de visualização da camera
                     float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
@@ -85,10 +89,7 @@ public class player : MonoBehaviour
                     //armazena direção com base na direção do mouse
                     moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.forward * speed;
 
-                    
-
                     isWalking = true;
-
                     
                 }
 
