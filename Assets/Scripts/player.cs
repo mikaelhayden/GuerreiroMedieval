@@ -27,7 +27,7 @@ public class player : MonoBehaviour
 
     public List<Transform> enemyList = new List<Transform>();
 
-    Vector3 moveDirection;
+    Vector3 moveDirection = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,7 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!isDead && !jump.isJump)
+        if(!isDead)
         {
             move();
             GetMouseInput();
@@ -50,7 +50,15 @@ public class player : MonoBehaviour
 
     void move()
     {
-        if(controller.isGrounded && jump.isJump == false)
+        if(controller.isGrounded)
+        {
+            moveDirection = new Vector3(Input.GetAxis("Horizontal") * 0.04f, Input.GetAxis("Jump") * 0.2f, Input.GetAxis("Vertical") * 0.05f);
+            moveDirection = transform.TransformDirection(moveDirection);
+        }
+        moveDirection.y -= 0.6f * Time.deltaTime;
+        controller.Move(moveDirection);
+
+        /*if(controller.isGrounded && jump.isJump == false)
         {
             //pega o input horizontal (teclas direita/esquerda)
             float horizontal = Input.GetAxisRaw("Horizontal");
@@ -58,7 +66,7 @@ public class player : MonoBehaviour
             float vertical = Input.GetAxisRaw("Vertical");
 
             //variável local que armazena os eixos horizontal e vertical
-            Vector3 direction = new Vector3(horizontal, 0f, vertical);
+            Vector3 direction = new Vector3(horizontal, 0f , vertical);
 
             //verifica se o personagem está movimentando (caso o input seja maior que zero)
             if (direction.magnitude > 0)
@@ -113,10 +121,11 @@ public class player : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
 
         //move o personagem
-        controller.Move(moveDirection * Time.deltaTime);
+        controller.Move(moveDirection * Time.deltaTime);*/
     }
 
     //método para andar e atacar
+
     void GetMouseInput()
     {
         if(controller.isGrounded)
@@ -174,7 +183,7 @@ public class player : MonoBehaviour
     }
 
     //lista de inimigos
-    void GetEnemiesList()
+    private void GetEnemiesList()
     {
         enemyList.Clear();
         foreach(Collider c in Physics.OverlapSphere((transform.position + transform.forward * colliderRadius), colliderRadius))
@@ -216,7 +225,7 @@ public class player : MonoBehaviour
         anim.SetBool("attacking", false);
     }
 
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + transform.forward, colliderRadius);
