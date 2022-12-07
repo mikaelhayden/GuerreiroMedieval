@@ -6,7 +6,7 @@ public class player : MonoBehaviour
 {
     public CharacterController controller;
 
-    private bool isWalking;
+    //private bool isWalking;
     public bool hiting;
     private bool waitFor;
     public bool isDead;
@@ -17,10 +17,10 @@ public class player : MonoBehaviour
     public float colliderRadius;
     public float damage = 20;
     public float health;
-    public JumpPlayer jump;
-    public bool isJumping;
+    //public JumpPlayer jump;
+   //public bool isJumping;
 
-    private float turnSmoothVelocity;
+    //private float turnSmoothVelocity;
 
     private Animator anim;
     private Transform cam;
@@ -35,7 +35,7 @@ public class player : MonoBehaviour
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
-        jump = GetComponent<JumpPlayer>();
+        //jump = GetComponent<JumpPlayer>();
     }
 
     // Update is called once per frame
@@ -43,12 +43,12 @@ public class player : MonoBehaviour
     {
         if(!isDead)
         {
-            move();
+            //move();
             GetMouseInput();
         }
     }
 
-    void move()
+    /*void move()
     {
         if(controller.isGrounded)
         {
@@ -58,7 +58,7 @@ public class player : MonoBehaviour
         moveDirection.y -= 0.6f * Time.deltaTime;
         controller.Move(moveDirection);
 
-        /*if(controller.isGrounded && jump.isJump == false)
+        if(controller.isGrounded && jump.isJump == false)
         {
             //pega o input horizontal (teclas direita/esquerda)
             float horizontal = Input.GetAxisRaw("Horizontal");
@@ -121,8 +121,8 @@ public class player : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
 
         //move o personagem
-        controller.Move(moveDirection * Time.deltaTime);*/
-    }
+        controller.Move(moveDirection * Time.deltaTime);
+    }*/
 
     //método para andar e atacar
 
