@@ -8,12 +8,12 @@ public class player : MonoBehaviour
 
     //private bool isWalking;
     public bool hiting;
-    private bool waitFor;
+    public bool waitFor;
     public bool isDead;
 
-    public float speed;
-    public float gravity; //gravidade do player
-    public float smoothRotTime;
+    //public float speed;
+    //public float gravity; //gravidade do player
+    //public float smoothRotTime;
     public float colliderRadius;
     public float damage = 20;
     public float health;
@@ -27,14 +27,14 @@ public class player : MonoBehaviour
 
     public List<Transform> enemyList = new List<Transform>();
 
-    Vector3 moveDirection = Vector3.zero;
+    //Vector3 moveDirection = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
-        cam = Camera.main.transform;
+        //cam = Camera.main.transform;
         //jump = GetComponent<JumpPlayer>();
     }
 
@@ -132,7 +132,9 @@ public class player : MonoBehaviour
         {
             if(Input.GetMouseButtonDown(0))
             {
-                if(anim.GetBool("walking"))
+                StartCoroutine("attack");
+
+                /*if(anim.GetBool("walking"))
                 {
                     anim.SetBool("walking", false);
                     anim.SetInteger("transition", 0);
@@ -141,7 +143,7 @@ public class player : MonoBehaviour
                 if(!anim.GetBool("walking"))
                 {
                     StartCoroutine("attack");
-                }
+                }*/
             }
         }
     }
@@ -178,7 +180,7 @@ public class player : MonoBehaviour
 
             anim.SetBool("attacking", false);
 
-            waitFor = false;
+            waitFor = false; ;
         }
     }
 
@@ -222,6 +224,7 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(1f);
         anim.SetInteger("transition", 0);
         hiting = false;
+        waitFor = false;
         anim.SetBool("attacking", false);
     }
 

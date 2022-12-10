@@ -158,7 +158,11 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            Move();
+            if(_animator.GetBool("attacking") == false)
+            {
+                Move();
+            }
+            
         }
 
         private void LateUpdate()

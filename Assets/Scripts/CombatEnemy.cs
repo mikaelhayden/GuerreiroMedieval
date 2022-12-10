@@ -24,11 +24,11 @@ public class CombatEnemy : MonoBehaviour
     [Header("Other")]
     private Transform Player;
 
-    private bool walking;
-    private bool attacking;
-    private bool hiting;
+    public bool walking;
+    public bool attacking;
+    public bool hiting;
 
-    private bool waitFor;
+    public bool waitFor;
     public bool playerDead;
 
     [Header("WayPoints")]
@@ -36,6 +36,7 @@ public class CombatEnemy : MonoBehaviour
     public int currentPathIndex;
     public float pathDistance;
 
+    public GameObject KillEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +45,6 @@ public class CombatEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
         capsule = GetComponent<CapsuleCollider>();
         agent = GetComponent<NavMeshAgent>();
-
         Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -70,6 +70,7 @@ public class CombatEnemy : MonoBehaviour
                 if (distance <= agent.stoppingDistance)
                 {
                     //método atack
+                    walking = false;
                     StartCoroutine("Attack");
                     lookTarget();
                 }
@@ -102,7 +103,6 @@ public class CombatEnemy : MonoBehaviour
             {
                 //parte para o próximo ponto
                 currentPathIndex = Random.Range(0, wayPoints.Count);
-
             }
             anim.SetBool("Run Forward", true);
             walking = true;
@@ -118,24 +118,24 @@ public class CombatEnemy : MonoBehaviour
             walking = false;
 
             anim.SetBool("Run Forward", false);
-            anim.SetBool("Claw Attack", true);
+            anim.SetTrigger("Claw Attack");
             yield return new WaitForSeconds(1f);
             GetPlayer();
             yield return new WaitForSeconds(0.5f);
             waitFor = false;
         }
 
-        if (playerDead)
+        if(playerDead)
         {
             anim.SetBool("Run Forward", false);
             anim.SetBool("Claw Attack", false);
             walking = false;
             attacking = false;
             agent.isStopped = true;
-
         }
 
     }
+
 
     void GetPlayer()
     {
@@ -149,6 +149,12 @@ public class CombatEnemy : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator die()
+    {
+        yield return new WaitForSeconds(5f);
+        Debug.Log("esperando");
     }
 
     public void GetHit(float damage)
@@ -168,6 +174,8 @@ public class CombatEnemy : MonoBehaviour
         {
             //inimigo morre
             anim.SetTrigger("Die");
+            StartCoroutine("die");
+            Destroy(gameObject);
         }
     }
 
@@ -177,7 +185,7 @@ public class CombatEnemy : MonoBehaviour
         anim.SetBool("Run Forward", false);
         anim.SetTrigger("Claw Attack");
         hiting = false;
-        waitFor = false;
+        //waitFor = false;
     }
 
     void lookTarget()
@@ -191,5 +199,10 @@ public class CombatEnemy : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, colliderRadius);
     }
 }
