@@ -70,7 +70,7 @@ public class CombatEnemy : MonoBehaviour
                 if (distance <= agent.stoppingDistance)
                 {
                     //método atack
-                    walking = false;
+                    //walking = false;
                     StartCoroutine("Attack");
                     lookTarget();
                 }
@@ -82,10 +82,10 @@ public class CombatEnemy : MonoBehaviour
             else
             {
                 //o personagem está fora do raio de ação
+                anim.SetBool("Run Forward", false);
                 walking = false;
                 attacking = false;
                 //agent.isStopped = true;
-                anim.SetBool("Run Forward", false);
                 moveTo();
             }
         }
@@ -111,17 +111,17 @@ public class CombatEnemy : MonoBehaviour
 
     IEnumerator Attack()
     {
-        if (!waitFor && !hiting && !playerDead && !walking)
+        if (!waitFor && !hiting && !playerDead)
         {
             waitFor = true;
             attacking = true;
             walking = false;
 
             anim.SetBool("Run Forward", false);
-            anim.SetTrigger("Claw Attack");
-            yield return new WaitForSeconds(1f);
+            anim.SetBool("Claw Attack", true);
+            yield return new WaitForSeconds(1.3f);
             GetPlayer();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             waitFor = false;
         }
 
@@ -153,8 +153,10 @@ public class CombatEnemy : MonoBehaviour
 
     IEnumerator die()
     {
-        yield return new WaitForSeconds(5f);
         Debug.Log("esperando");
+        yield return new WaitForSeconds(15f);
+        Destroy(gameObject);
+        
     }
 
     public void GetHit(float damage)
@@ -165,7 +167,7 @@ public class CombatEnemy : MonoBehaviour
         {
             //inimigo vivo
             StopCoroutine("Attack");
-            anim.SetTrigger("Take Damage");
+            anim.SetBool("Take Damage", true);
             hiting = true;
             StartCoroutine("recoveryFromHit");
         }
@@ -173,19 +175,18 @@ public class CombatEnemy : MonoBehaviour
         else
         {
             //inimigo morre
-            anim.SetTrigger("Die");
+            anim.SetBool("Die", true);
             StartCoroutine("die");
-            Destroy(gameObject);
         }
     }
 
     IEnumerator recoveryFromHit()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         anim.SetBool("Run Forward", false);
         anim.SetTrigger("Claw Attack");
-        hiting = false;
-        //waitFor = false;
+        hiting = false;   
+        waitFor = false;
     }
 
     void lookTarget()

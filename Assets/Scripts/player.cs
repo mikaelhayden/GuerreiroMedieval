@@ -17,13 +17,14 @@ public class player : MonoBehaviour
     public float colliderRadius;
     public float damage = 20;
     public float health;
+
     //public JumpPlayer jump;
    //public bool isJumping;
 
     //private float turnSmoothVelocity;
 
     private Animator anim;
-    private Transform cam;
+    //private Transform cam;
 
     public List<Transform> enemyList = new List<Transform>();
 
@@ -221,7 +222,7 @@ public class player : MonoBehaviour
     //player recuperando do dano
     IEnumerator RecoveryFromHit()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         anim.SetInteger("transition", 0);
         hiting = false;
         waitFor = false;
