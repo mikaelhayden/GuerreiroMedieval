@@ -109,6 +109,7 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
+        public player player1; //acessando o script player
 
         private bool IsCurrentDeviceMouse
         {
@@ -150,19 +151,23 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            player1 = GetComponent<player>();
         }
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
-
-            JumpAndGravity();
-            GroundedCheck();
-            if(_animator.GetBool("attacking") == false)
+            if(player1.isDead == false)
             {
-                Move();
+                _hasAnimator = TryGetComponent(out _animator);
+
+                JumpAndGravity();
+                GroundedCheck();
+                if (_animator.GetBool("attacking") == false)
+                {
+                    Move();
+                }
             }
-            
         }
 
         private void LateUpdate()
