@@ -55,4 +55,12 @@ public class menu : MonoBehaviour
         settingsObj.SetActive(true);
         informaSettings = true;
     }
+
+    public void voltar()
+    {
+        inforObj.SetActive(false);      //active de info fica false e variável para saber se está na tela de info fica false
+        settingsObj.SetActive(false);
+        informa = false;
+        informaSettings = false;
+    }
 }
