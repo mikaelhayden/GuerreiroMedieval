@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class CombatEnemy : MonoBehaviour
 {
+    [SerializeField] player player1;
+
     [Header("Atributtes")]
     public float totalHearth = 100;
     public float attackDamage;
@@ -30,18 +32,16 @@ public class CombatEnemy : MonoBehaviour
 
     public bool waitFor;
     public bool playerDead;
+    public bool death;
 
     [Header("WayPoints")]
     public List<Transform> wayPoints = new List<Transform>();
     public int currentPathIndex;
     public float pathDistance;
 
-    public GameObject KillEnemy;
-
     // Start is called before the first frame update
     void Start()
     {
-
         anim = GetComponent<Animator>();
         capsule = GetComponent<CapsuleCollider>();
         agent = GetComponent<NavMeshAgent>();
@@ -51,7 +51,7 @@ public class CombatEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (totalHearth > 0)
+        if (totalHearth > 0 && player1.isDead == false)
         {
             float distance = Vector3.Distance(Player.position, transform.position);
 
@@ -70,13 +70,13 @@ public class CombatEnemy : MonoBehaviour
                 if (distance <= agent.stoppingDistance)
                 {
                     //método atack
-                    //walking = false;
                     StartCoroutine("Attack");
                     lookTarget();
                 }
                 else
                 {
                     attacking = false;
+
                 }
             }
             else
@@ -88,6 +88,14 @@ public class CombatEnemy : MonoBehaviour
                 //agent.isStopped = true;
                 moveTo();
             }
+        }
+        else
+        {
+            anim.SetBool("Run Forward", false);
+            anim.SetBool("Claw Attack", false);
+            walking = false;
+            attacking = false;
+            agent.isStopped = true;
         }
 
     }
@@ -154,7 +162,7 @@ public class CombatEnemy : MonoBehaviour
     IEnumerator die()
     {
         Debug.Log("esperando");
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(10f);
         Destroy(gameObject);
         
     }
