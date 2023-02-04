@@ -167,7 +167,7 @@ namespace StarterAssets
                 {
                     Move();
                 }
-            }
+           }
         }
 
         private void LateUpdate()

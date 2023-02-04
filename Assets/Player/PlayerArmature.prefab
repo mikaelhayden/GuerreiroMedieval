@@ -707,12 +707,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  isWater: 0
   hiting: 0
   waitFor: 0
   isDead: 0
+  isMobile: 0
   colliderRadius: 1.26
   damage: 20
   health: 100
+  passosAudio: {fileID: 0}
+  passosAudioClip: []
+  passosAguaClip: []
   enemyList:
   - {fileID: 0}
   - {fileID: 0}
@@ -1670,6 +1675,7 @@ GameObject:
   - component: {fileID: 3939681848601607504}
   - component: {fileID: 4220288503205123296}
   - component: {fileID: 7413997925389705079}
+  - component: {fileID: 3449870593225806065}
   m_Layer: 0
   m_Name: Item_Sword
   m_TagString: Untagged
@@ -1742,6 +1748,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3449870593225806065
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567689767142320714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: -1
+  m_Mesh: {fileID: 1477066824072830117, guid: afe40efbb70760d4b98b7a0b18181f2c, type: 3}
 --- !u!1 &2594730818806989490
 GameObject:
   m_ObjectHideFlags: 0

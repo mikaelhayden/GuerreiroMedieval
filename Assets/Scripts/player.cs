@@ -6,9 +6,11 @@ public class player : MonoBehaviour
 {
     public CharacterController controller;
 
+    public bool isWater;
     public bool hiting;
     public bool waitFor;
     public bool isDead;
+    public bool isMobile;
 
     public float colliderRadius;
     public float damage = 20;
@@ -16,6 +18,10 @@ public class player : MonoBehaviour
 
 
     private Animator anim;
+    [SerializeField] private AudioSource passosAudio;
+    [SerializeField] private AudioClip[] passosAudioClip;
+    [SerializeField] private AudioClip[] passosAguaClip;
+
 
     public List<Transform> enemyList = new List<Transform>();
 
@@ -38,16 +44,28 @@ public class player : MonoBehaviour
 
     //método para andar e atacar
 
-    void GetMouseInput()
+    public void GetMouseInput()
     {
-        if(controller.isGrounded)
+        if (controller.isGrounded)
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && isMobile == false)
             {
                 StartCoroutine("attack");
             }
         }
     }
+
+    public void GeButton()
+    {
+        if(controller.isGrounded && !isDead)
+        {
+            if(isMobile == true)
+            {
+                StartCoroutine("attack");
+            }
+        }
+    }
+
 
     //corrotina de ataque
     IEnumerator attack()
@@ -129,6 +147,35 @@ public class player : MonoBehaviour
         anim.SetBool("attacking", false);
     }
 
+    private void OnTriggerEnter(Collider hit)
+    {
+        if (hit.tag == "agua")
+        {
+            isWater = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider hit)
+    {
+        if (hit.tag == "agua")
+        {
+            isWater = false;
+        }
+    }
+
+    private void passos()
+    {
+        if(isWater == true)
+        {
+            passosAudio.PlayOneShot(passosAguaClip[Random.Range(0, passosAguaClip.Length)]);
+        }
+        else
+        {
+            passosAudio.PlayOneShot(passosAudioClip[Random.Range(0, passosAudioClip.Length)]);
+        }
+        
+    }
+    
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
