@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class controlGame : MonoBehaviour
 {
+    public GameObject pauseObj;
+    public GameObject gameOverObj;
+    public GameObject infoPlayer;
+
+    private bool isPause;
+
     public Slider slider;
 
     player player1;
@@ -16,6 +23,57 @@ public class controlGame : MonoBehaviour
 
     void Update()
     {
+        pauseGame();
         slider.value = player1.health;
     }
+
+    public void pauseGame() //função para salvar o jogo
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isPause = !isPause;
+            pauseObj.SetActive(isPause);
+            infoPlayer.SetActive(!isPause);
+
+        }
+
+        if (isPause)
+        {
+            Time.timeScale = 0f;    //o que realmente faz pausar o jogo
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void menuPause()
+    {
+        isPause = !isPause;
+        pauseObj.SetActive(isPause);
+        SceneManager.LoadScene(0);
+    }
+
+    public void resume()
+    {
+        isPause = !isPause;
+        pauseObj.SetActive(isPause);
+        infoPlayer.SetActive(!isPause);
+    }
+
+    public void gameOver()
+    {
+        gameOverObj.SetActive(true);
+    }
+
+    public void restartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }

@@ -25,6 +25,8 @@ public class player : MonoBehaviour
 
     public List<Transform> enemyList = new List<Transform>();
 
+    public controlGame over;
+
 
     // Start is called before the first frame update
     void Start()
