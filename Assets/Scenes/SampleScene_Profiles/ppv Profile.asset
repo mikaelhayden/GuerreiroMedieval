@@ -18,10 +18,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 1.72
+    value: 2.95
   threshold:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 8.04
   softKnee:
     overrideState: 0
     value: 0.5
@@ -84,10 +84,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.38
+    value: 0.47
   color:
     overrideState: 1
-    value: {r: 0.16981131, g: 0.16901031, b: 0.16901031, a: 1}
+    value: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}
   ambientOnly:
     overrideState: 0
     value: 1
@@ -102,7 +102,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 3.29
+    value: 6.1
   directLightingStrength:
     overrideState: 0
     value: 0
@@ -171,22 +171,22 @@ MonoBehaviour:
     value: 0
   colorFilter:
     overrideState: 1
-    value: {r: 0.79045033, g: 0.8454922, b: 0.8773585, a: 1}
+    value: {r: 0.7688679, g: 0.79350996, b: 1, a: 1}
   hueShift:
     overrideState: 1
-    value: 0
+    value: -3
   saturation:
     overrideState: 1
-    value: 1
+    value: 13
   brightness:
     overrideState: 0
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.44
+    value: 0.57
   contrast:
     overrideState: 1
-    value: 27
+    value: 44
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -207,13 +207,13 @@ MonoBehaviour:
     value: 0
   mixerBlueOutRedIn:
     overrideState: 0
-    value: 0
+    value: 52
   mixerBlueOutGreenIn:
     overrideState: 0
-    value: 0
+    value: 54
   mixerBlueOutBlueIn:
     overrideState: 0
-    value: 100
+    value: 36
   lift:
     overrideState: 0
     value: {x: 1, y: 1, z: 1, w: 0}

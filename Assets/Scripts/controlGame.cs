@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class controlGame : MonoBehaviour
 {
+
     public GameObject pauseObj;
     public GameObject gameOverObj;
     public GameObject infoPlayer;
 
     private bool isPause;
+    private bool pauseButton;
 
     public Slider slider;
 
@@ -27,6 +29,10 @@ public class controlGame : MonoBehaviour
         slider.value = player1.health;
     }
 
+    public void clickPause()
+    {
+        pauseButton = true;
+    }
     public void pauseGame() //função para salvar o jogo
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -35,6 +41,14 @@ public class controlGame : MonoBehaviour
             pauseObj.SetActive(isPause);
             infoPlayer.SetActive(!isPause);
 
+        }
+
+        else if(pauseButton == true)
+        {
+            isPause = !isPause;
+            pauseObj.SetActive(isPause);
+            infoPlayer.SetActive(!isPause);
+            pauseButton = false;
         }
 
         if (isPause)

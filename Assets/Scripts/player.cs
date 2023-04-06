@@ -5,6 +5,7 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     public CharacterController controller;
+    public controlGame over; 
 
     public bool isWater;
     public bool hiting;
@@ -16,17 +17,12 @@ public class player : MonoBehaviour
     public float damage = 20;
     public float health;
 
-
     private Animator anim;
     [SerializeField] private AudioSource passosAudio;
     [SerializeField] private AudioClip[] passosAudioClip;
     [SerializeField] private AudioClip[] passosAguaClip;
 
-
     public List<Transform> enemyList = new List<Transform>();
-
-    public controlGame over;
-
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +32,13 @@ public class player : MonoBehaviour
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        if (isDead)
+        {
+            
+        }
+    }
     void FixedUpdate()
     {
         if(!isDead)
@@ -72,11 +75,11 @@ public class player : MonoBehaviour
     //corrotina de ataque
     IEnumerator attack()
     {
-        Debug.Log("entrou no atack");
+        //Debug.Log("entrou no atack");
         if (!waitFor && !hiting)
         {
             waitFor = true;
-            Debug.Log("entrou no IF");
+           // Debug.Log("entrou no IF");
             anim.SetBool("attacking", true);
             anim.SetInteger("transition", 2);
 
@@ -131,11 +134,12 @@ public class player : MonoBehaviour
             StartCoroutine("RecoveryFromHit");
         }
 
-        else
+        if(health <=0)
         {
             //player morre
             isDead = true;
             anim.SetTrigger("die");
+            over.gameOver();
         }
     }
 

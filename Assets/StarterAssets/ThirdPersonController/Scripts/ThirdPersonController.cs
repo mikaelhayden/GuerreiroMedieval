@@ -157,7 +157,7 @@ namespace StarterAssets
 
         private void Update()
         {
-            if(player1.isDead == false)
+            if (player1.isDead == false)
             {
                 _hasAnimator = TryGetComponent(out _animator);
 
