@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -80,7 +82,7 @@ namespace StarterAssets
         private float _cinemachineTargetPitch;
 
         // player
-        private float _speed;
+        public float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
@@ -110,7 +112,7 @@ namespace StarterAssets
 
         private bool _hasAnimator;
         public player player1; //acessando o script player
-
+        public int contador;
         private bool IsCurrentDeviceMouse
         {
             get
@@ -166,10 +168,20 @@ namespace StarterAssets
                 if (_animator.GetBool("attacking") == false)
                 {
                     Move();
+                    /*if(_speed > SprintSpeed)
+                    {
+                        StartCoroutine("run");
+                    }*/
                 }
            }
         }
 
+        /*IEnumerator run()
+        {
+            Debug.Log(contador);
+            yield return new WaitForSeconds(20f);
+            contador++;
+        }*/
         private void LateUpdate()
         {
             CameraRotation();
@@ -384,7 +396,8 @@ namespace StarterAssets
             {
                 if (FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
+                    var index = Random.Range(0,
+                        FootstepAudioClips.Length);
                     AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }

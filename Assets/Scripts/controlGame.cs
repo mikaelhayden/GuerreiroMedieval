@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using StarterAssets;
 
 public class controlGame : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class controlGame : MonoBehaviour
     public GameObject pauseObj;
     public GameObject gameOverObj;
     public GameObject infoPlayer;
+    public GameObject player;
 
     private bool isPause;
     private bool pauseButton;
@@ -21,6 +23,7 @@ public class controlGame : MonoBehaviour
     void Start()
     {
         player1 = FindObjectOfType<player>();
+        player = GameObject.FindWithTag("Player");
     }
 
     void Update()
@@ -54,10 +57,12 @@ public class controlGame : MonoBehaviour
         if (isPause)
         {
             Time.timeScale = 0f;    //o que realmente faz pausar o jogo
+            player.GetComponent<ThirdPersonController>().enabled = false;
         }
         else
         {
             Time.timeScale = 1f;
+            player.GetComponent<ThirdPersonController>().enabled = true;
         }
     }
 

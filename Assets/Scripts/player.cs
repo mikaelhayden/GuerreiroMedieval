@@ -32,13 +32,6 @@ public class player : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
-    {
-        if (isDead)
-        {
-            
-        }
-    }
     void FixedUpdate()
     {
         if(!isDead)

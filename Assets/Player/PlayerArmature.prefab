@@ -508,13 +508,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.8
-  m_Radius: 0.28
+  m_Height: 1.89
+  m_Radius: 0.58
   m_SlopeLimit: 45
   m_StepOffset: 0.25
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.93, z: 0}
+  m_Center: {x: 0.03, y: 0.93, z: 0.22}
 --- !u!114 &730158151521628904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,7 +559,9 @@ MonoBehaviour:
   BottomClamp: -10.02
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  _speed: 0
   player1: {fileID: 0}
+  contador: 0
 --- !u!114 &7404592479128164371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,6 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  over: {fileID: 0}
   isWater: 0
   hiting: 0
   waitFor: 0
@@ -5192,7 +5195,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.61880493
+      value: 0.6187744
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_LocalPosition.y
