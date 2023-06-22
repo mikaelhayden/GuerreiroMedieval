@@ -14,6 +14,7 @@ public class menu : MonoBehaviour
     public GameObject inforObj;
     public GameObject settingsObj;
 
+
     private bool informa;
     private bool informaSettings;
 
@@ -39,6 +40,7 @@ public class menu : MonoBehaviour
         }
 
     }
+
     public void startGame()
     {
         informa = false;
