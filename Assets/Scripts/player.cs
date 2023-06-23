@@ -22,6 +22,10 @@ public class player : MonoBehaviour
     [SerializeField] private AudioClip[] passosAudioClip;
     [SerializeField] private AudioClip[] passosAguaClip;
 
+    [SerializeField] private AudioSource swordAudio;
+    [SerializeField] private AudioClip[] swordAudioClip;
+
+
     public List<Transform> enemyList = new List<Transform>();
 
     // Start is called before the first frame update
@@ -173,6 +177,11 @@ public class player : MonoBehaviour
             passosAudio.PlayOneShot(passosAudioClip[Random.Range(0, passosAudioClip.Length)]);
         }
         
+    }
+
+    private void sword()
+    {
+        swordAudio.PlayOneShot(swordAudioClip[Random.Range(0, swordAudioClip.Length)]);
     }
     
     void OnDrawGizmosSelected()
