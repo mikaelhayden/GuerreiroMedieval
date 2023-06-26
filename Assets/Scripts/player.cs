@@ -25,6 +25,12 @@ public class player : MonoBehaviour
     [SerializeField] private AudioSource swordAudio;
     [SerializeField] private AudioClip[] swordAudioClip;
 
+    [SerializeField] private AudioSource deadAudio;
+    [SerializeField] private AudioClip deadAudioClip;
+
+    [SerializeField] private AudioSource impactAudio;
+    [SerializeField] private AudioClip impactAudioClip;
+
 
     public List<Transform> enemyList = new List<Transform>();
 
@@ -183,7 +189,19 @@ public class player : MonoBehaviour
     {
         swordAudio.PlayOneShot(swordAudioClip[Random.Range(0, swordAudioClip.Length)]);
     }
-    
+
+    private void impact()
+    {
+        swordAudio.PlayOneShot(impactAudioClip);
+    }
+
+    private void dead()
+    {
+        swordAudio.PlayOneShot(deadAudioClip);
+    }
+
+
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
