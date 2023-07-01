@@ -11763,7 +11763,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inforObj: {fileID: 845707815}
   settingsObj: {fileID: 1302185163}
-  volume: {fileID: 1538037326}
 --- !u!4 &833372564
 Transform:
   m_ObjectHideFlags: 0
@@ -12372,7 +12371,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2177df1a68a4afe4f91301110d2e87ce, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0

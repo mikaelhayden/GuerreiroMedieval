@@ -44,7 +44,7 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!isDead)
+        if(!isDead && over.isPause == false)
         {
             GetMouseInput();
         }
@@ -56,7 +56,7 @@ public class player : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            if (Input.GetMouseButtonDown(0) && isMobile == false)
+            if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire1")) && isMobile == false)
             {
                 StartCoroutine("attack");
             }
@@ -86,7 +86,7 @@ public class player : MonoBehaviour
             anim.SetBool("attacking", true);
             anim.SetInteger("transition", 2);
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.3f);
 
             GetEnemiesList();
 

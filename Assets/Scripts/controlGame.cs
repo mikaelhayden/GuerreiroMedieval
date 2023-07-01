@@ -13,8 +13,9 @@ public class controlGame : MonoBehaviour
     public GameObject infoPlayer;
     public GameObject player;
 
-    private bool isPause;
+    public bool isPause;
     private bool pauseButton;
+    private bool isGameOver;
 
     public Slider slider;
 
@@ -38,7 +39,7 @@ public class controlGame : MonoBehaviour
     }
     public void pauseGame() //função para salvar o jogo
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel") && isGameOver == false)
         {
             isPause = !isPause;
             pauseObj.SetActive(isPause);
@@ -58,6 +59,7 @@ public class controlGame : MonoBehaviour
         {
             Time.timeScale = 0f;    //o que realmente faz pausar o jogo
             player.GetComponent<ThirdPersonController>().enabled = false;
+            player.GetComponent<ThirdPersonController>()._animator.SetFloat("Speed", 0);
         }
         else
         {
@@ -82,6 +84,7 @@ public class controlGame : MonoBehaviour
 
     public void gameOver()
     {
+        isGameOver = true;
         gameOverObj.SetActive(true);
     }
 
