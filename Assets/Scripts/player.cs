@@ -42,7 +42,7 @@ public class player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if(!isDead && over.isPause == false)
         {
@@ -61,6 +61,7 @@ public class player : MonoBehaviour
                 StartCoroutine("attack");
             }
         }
+
     }
 
     public void GeButton()
@@ -82,11 +83,11 @@ public class player : MonoBehaviour
         if (!waitFor && !hiting)
         {
             waitFor = true;
-           // Debug.Log("entrou no IF");
+            //Debug.Log("entrou no IF");
             anim.SetBool("attacking", true);
             anim.SetInteger("transition", 2);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.9f);
 
             GetEnemiesList();
 
@@ -101,7 +102,7 @@ public class player : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.9f);
 
             anim.SetInteger("transition", 0);
 

@@ -161,10 +161,8 @@ public class CombatEnemy : MonoBehaviour
 
     IEnumerator die()
     {
-        Debug.Log("esperando");
         yield return new WaitForSeconds(10f);
         Destroy(gameObject);
-        
     }
 
     public void GetHit(float damage)
@@ -190,7 +188,7 @@ public class CombatEnemy : MonoBehaviour
 
     IEnumerator recoveryFromHit()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         anim.SetBool("Run Forward", false);
         anim.SetTrigger("Claw Attack");
         hiting = false;   
