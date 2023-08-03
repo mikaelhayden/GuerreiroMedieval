@@ -39,6 +39,7 @@ public class player : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        
     }
 
     // Update is called once per frame
@@ -48,6 +49,8 @@ public class player : MonoBehaviour
         {
             GetMouseInput();
         }
+
+        Cursor.visible = false;
     }
 
     //método para andar e atacar

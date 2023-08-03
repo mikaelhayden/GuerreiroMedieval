@@ -15,29 +15,14 @@ public class menu : MonoBehaviour
     public GameObject settingsObj;
     public GameObject menuInicial;
 
-
-    private bool informa;
-    private bool informaSettings;
-
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            //se o jogador estiver no menu principal e pressione esc,  ele sai do game
-            if (informa == false && informaSettings == false)
-            {
-                Application.Quit();
-            }
-
             //caso o jogador pressione esc e esteja na tela de info ele volta pra tela principal
-            else
-            {
-                inforObj.SetActive(false);      //active de info fica false e variável para saber se está na tela de info fica false
-                settingsObj.SetActive(false);
-                informa = false;
-                informaSettings = false;
-                menuInicial.SetActive(true);
-            }
+            inforObj.SetActive(false);      //active de info fica false e variável para saber se está na tela de info fica false
+            settingsObj.SetActive(false);
+            menuInicial.SetActive(true);
 
         }
 
@@ -45,20 +30,17 @@ public class menu : MonoBehaviour
 
     public void startGame()
     {
-        informa = false;
         SceneManager.LoadScene(1);
     }
     public void info()
     {
         inforObj.SetActive(true);
-        informa = true;
         menuInicial.SetActive(false);
     }
 
     public void settings()
     {
         settingsObj.SetActive(true);
-        informaSettings = true;
         menuInicial.SetActive(false);
     }
 
@@ -66,8 +48,11 @@ public class menu : MonoBehaviour
     {
         inforObj.SetActive(false);      
         settingsObj.SetActive(false);
-        informa = false;
-        informaSettings = false;
         menuInicial.SetActive(true); ;            //Pausa o game para não entrar em duas telas ao mesmo tempo
+    }
+
+    public void sair()
+    {
+        Application.Quit();
     }
 }
