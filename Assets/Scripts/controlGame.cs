@@ -16,6 +16,7 @@ public class controlGame : MonoBehaviour
     public bool isPause;
     private bool pauseButton;
     private bool isGameOver;
+    public bool isMouse;
 
     public Slider slider;
 
@@ -25,12 +26,15 @@ public class controlGame : MonoBehaviour
     {
         player1 = FindObjectOfType<player>();
         player = GameObject.FindWithTag("Player");
+        isMouse = false;
     }
 
     void Update()
     {
         pauseGame();
         slider.value = player1.health;
+        Cursor.visible = isMouse;
+        Debug.Log(Cursor.visible);
     }
 
     public void clickPause()
@@ -41,14 +45,15 @@ public class controlGame : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel") && isGameOver == false)
         {
+            isMouse = true;
             isPause = !isPause;
             pauseObj.SetActive(isPause);
             infoPlayer.SetActive(!isPause);
-
         }
 
         else if(pauseButton == true)
         {
+            isMouse = true;
             isPause = !isPause;
             pauseObj.SetActive(isPause);
             infoPlayer.SetActive(!isPause);
@@ -63,6 +68,7 @@ public class controlGame : MonoBehaviour
         }
         else
         {
+            isMouse = false;
             Time.timeScale = 1f;
             player.GetComponent<ThirdPersonController>().enabled = true;
         }
@@ -77,6 +83,7 @@ public class controlGame : MonoBehaviour
 
     public void resume()
     {
+        isMouse = false;
         isPause = !isPause;
         pauseObj.SetActive(isPause);
         infoPlayer.SetActive(!isPause);
@@ -84,6 +91,7 @@ public class controlGame : MonoBehaviour
 
     public void gameOver()
     {
+        isMouse = true;
         isGameOver = true;
         gameOverObj.SetActive(true);
     }

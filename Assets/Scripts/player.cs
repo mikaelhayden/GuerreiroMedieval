@@ -5,13 +5,14 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     public CharacterController controller;
-    public controlGame over; 
+    public controlGame over;
 
     public bool isWater;
     public bool hiting;
     public bool waitFor;
     public bool isDead;
     public bool isMobile;
+   
 
     public float colliderRadius;
     public float damage = 20;
@@ -39,7 +40,6 @@ public class player : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
-        
     }
 
     // Update is called once per frame
@@ -49,8 +49,6 @@ public class player : MonoBehaviour
         {
             GetMouseInput();
         }
-
-        Cursor.visible = false;
     }
 
     //método para andar e atacar

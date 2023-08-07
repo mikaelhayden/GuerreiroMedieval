@@ -6,6 +6,7 @@ using UnityEngine;
 public class tesouro : MonoBehaviour
 {
     public GameObject fim;
+    public controlGame over;
     public bool isPause;
 
     void Update()
@@ -25,6 +26,7 @@ public class tesouro : MonoBehaviour
         {
             isPause = true;
             fim.SetActive(true);
+            over.isMouse = true;
         }
     }
 

@@ -23,9 +23,13 @@ public class menu : MonoBehaviour
             inforObj.SetActive(false);      //active de info fica false e variável para saber se está na tela de info fica false
             settingsObj.SetActive(false);
             menuInicial.SetActive(true);
-
         }
 
+    }
+
+    private void Start()
+    {
+        Cursor.visible = true;
     }
 
     public void startGame()
