@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using StarterAssets;
+using UnityEngine.EventSystems;
 
 public class controlGame : MonoBehaviour
 {
@@ -12,11 +13,15 @@ public class controlGame : MonoBehaviour
     public GameObject gameOverObj;
     public GameObject infoPlayer;
     public GameObject player;
+    public GameObject resumeButtonFirst;
+    public GameObject overButtonFirst;
+    public GameObject endButtonFirst;
+
+    private bool pauseButton;
 
     public bool isPause;
-    private bool pauseButton;
-    private bool isGameOver;
     public bool isMouse;
+    public bool pauseIsNot;
 
     public Slider slider;
 
@@ -27,6 +32,9 @@ public class controlGame : MonoBehaviour
         player1 = FindObjectOfType<player>();
         player = GameObject.FindWithTag("Player");
         isMouse = false;
+        pauseIsNot = false;
+        Cursor.lockState = CursorLockMode.Locked; //Deixa travado ao centro da tela
+        Cursor.lockState = CursorLockMode.Confined; //Deixa travado na janela
     }
 
     void Update()
@@ -34,26 +42,29 @@ public class controlGame : MonoBehaviour
         pauseGame();
         slider.value = player1.health;
         Cursor.visible = isMouse;
-        Debug.Log(Cursor.visible);
     }
 
     public void clickPause()
     {
         pauseButton = true;
     }
-    public void pauseGame() //função para salvar o jogo
+    public void pauseGame() //função para pausar o jogo
     {
-        if (Input.GetButtonDown("Cancel") && isGameOver == false)
+        if (Input.GetButtonDown("Cancel") && pauseIsNot == false)
         {
-            isMouse = true;
+            mouse();
             isPause = !isPause;
             pauseObj.SetActive(isPause);
             infoPlayer.SetActive(!isPause);
+            //clear selected object
+            EventSystem.current.SetSelectedGameObject(null);
+            //set a new object
+            EventSystem.current.SetSelectedGameObject(resumeButtonFirst);
         }
 
-        else if(pauseButton == true)
+        else if(pauseButton == true && pauseIsNot == false)
         {
-            isMouse = true;
+            mouse();
             isPause = !isPause;
             pauseObj.SetActive(isPause);
             infoPlayer.SetActive(!isPause);
@@ -68,7 +79,6 @@ public class controlGame : MonoBehaviour
         }
         else
         {
-            isMouse = false;
             Time.timeScale = 1f;
             player.GetComponent<ThirdPersonController>().enabled = true;
         }
@@ -83,17 +93,22 @@ public class controlGame : MonoBehaviour
 
     public void resume()
     {
-        isMouse = false;
+        mouse();
         isPause = !isPause;
         pauseObj.SetActive(isPause);
         infoPlayer.SetActive(!isPause);
+        pauseIsNot = false;
     }
 
     public void gameOver()
     {
-        isMouse = true;
-        isGameOver = true;
+        mouse();
         gameOverObj.SetActive(true);
+        pauseIsNot = true;
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        //set a new object
+        EventSystem.current.SetSelectedGameObject(overButtonFirst);
     }
 
     public void restartGame()
@@ -104,6 +119,11 @@ public class controlGame : MonoBehaviour
     public void menu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void mouse()
+    {
+        isMouse = !isMouse;
     }
 
 }

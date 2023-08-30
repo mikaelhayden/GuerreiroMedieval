@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 //Script do menu do game, o menu conta com o botão Play, settings e Info
 //O play inicia a cena do game principal 
@@ -14,6 +15,10 @@ public class menu : MonoBehaviour
     public GameObject inforObj;
     public GameObject settingsObj;
     public GameObject menuInicial;
+    public GameObject playButton;
+    public GameObject voltarSettingsButton;
+    public GameObject voltarInfoButton;
+
 
     void Update()
     {
@@ -40,12 +45,25 @@ public class menu : MonoBehaviour
     {
         inforObj.SetActive(true);
         menuInicial.SetActive(false);
+
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+        //set a new object
+        EventSystem.current.SetSelectedGameObject(voltarInfoButton);
     }
 
     public void settings()
     {
         settingsObj.SetActive(true);
         menuInicial.SetActive(false);
+
+        //clear selected object
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set a new object
+        EventSystem.current.SetSelectedGameObject(voltarSettingsButton);
+
+        
     }
 
     public void voltar()    //Volta todas as telas se estiver em alguma tela, irá voltar
@@ -53,6 +71,12 @@ public class menu : MonoBehaviour
         inforObj.SetActive(false);      
         settingsObj.SetActive(false);
         menuInicial.SetActive(true); ;            //Pausa o game para não entrar em duas telas ao mesmo tempo
+
+        EventSystem.current.SetSelectedGameObject(null);
+
+        //set a new object
+        EventSystem.current.SetSelectedGameObject(playButton);
+
     }
 
     public void sair()

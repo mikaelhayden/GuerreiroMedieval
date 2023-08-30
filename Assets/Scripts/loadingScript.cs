@@ -14,7 +14,7 @@ public class loadingScript : MonoBehaviour
 
     IEnumerator loading()
     {
-            yield return new WaitForSeconds(11f);
+            yield return new WaitForSeconds(15f);
             SceneManager.LoadScene(2);
     }
 }

@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class tesouro : MonoBehaviour
 {
     public GameObject fim;
     public controlGame over;
+
     public bool isPause;
 
     void Update()
@@ -26,7 +28,12 @@ public class tesouro : MonoBehaviour
         {
             isPause = true;
             fim.SetActive(true);
-            over.isMouse = true;
+            over.mouse();
+            over.pauseIsNot = true;
+            //clear selected object
+            EventSystem.current.SetSelectedGameObject(null);
+            //set a new object
+            EventSystem.current.SetSelectedGameObject(over.endButtonFirst);
         }
     }
 
